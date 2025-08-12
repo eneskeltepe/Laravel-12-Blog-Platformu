@@ -5,9 +5,16 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 ### Neler var
 - Modeller: Post, Category, Tag, Comment, User
 - Migrasyonlar: posts, categories, tags, post_tag (pivot), comments
-- Controller’lar: HomeController, AboutController, ArchiveController, BusinessController (+ Admin klasörü iskeleti)
-- Görünümler: `resources/views/pages/{home,about,archive,business}.blade.php`
-- Rotalar: `/`, `/about`, `/archive`, `/business`
+- Controller’lar: HomeController, AboutController, ArchiveController, BusinessController, Admin/DashboardController
+- Görünümler: `resources/views/pages/{home,about,archive,business}.blade.php` ve Admin için `resources/views/admin/{layouts,template,pages}`
+- Rotalar: `/`, `/about`, `/archive`, `/business` ve Admin için `/admin` (name: `admin.dashboard.index`)
+
+### Admin Modülü (yeni)
+- Rota grubu: `Route::prefix('admin')->name('admin.')->group(...)`
+- Dashboard: `Admin\DashboardController@index` → view: `admin.pages.dashboard`
+- Layout: `resources/views/admin/layouts/main.blade.php` (header, topbar, sidebar, footer include edilir)
+- Template parçaları: `resources/views/admin/template/{header,topbar,sidebar,footer}.blade.php`
+- Statik dosyalar: `public/assetsAdmin/**` (Blade içinde `asset('assetsAdmin/...')` ile kullanılır)
 
 ### Kurulum
 Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP veya benzeri.
@@ -27,10 +34,12 @@ Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP v
 - PHP yerel sunucu: `php artisan serve`
 	veya WAMP sanal host üzerinden erişin.
 
+Admin paneli: `http://localhost:8000/admin` (veya sanal host adresiniz `/admin`).
+
 ### Notlar ve Yol Haritası
 - Pivot tablo migrasyonunda tablo adı `post_create` olarak görünüyor; `post_tag` olacak şekilde düzenlenmesi planlanıyor.
 - Modellerde ilişkiler (belongsTo, hasMany, belongsToMany) henüz tanımlı değil; eklenecek.
-- Admin modülü için temel iskelet mevcut; yetkilendirme/CRUD ekranları eklenecek.
+- Admin modülü iskeleti eklendi; yetkilendirme ve içerik CRUD ekranları eklenecek.
 
 ### Lisans
 MIT

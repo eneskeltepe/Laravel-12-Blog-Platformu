@@ -1,0 +1,26 @@
+<!-- JAVASCRIPT -->
+<script src="{{ asset('assetsAdmin/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assetsAdmin/libs/simplebar/simplebar.min.js') }}"></script>
+<script src="{{ asset('assetsAdmin/libs/node-waves/waves.min.js') }}"></script>
+<script src="{{ asset('assetsAdmin/libs/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('assetsAdmin/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
+<script src="{{ asset('assetsAdmin/js/plugins.js') }}"></script>
+
+<!-- apexcharts -->
+<script src="{{ asset('assetsAdmin/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+<!-- Vector map-->
+<script src="{{ asset('assetsAdmin/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+<script src="{{ asset('assetsAdmin/libs/jsvectormap/maps/world-merc.js') }}"></script>
+
+<!--Swiper slider js-->
+<script src="{{ asset('assetsAdmin/libs/swiper/swiper-bundle.min.js') }}"></script>
+
+<!-- Dashboard init -->
+<script src="{{ asset('assetsAdmin/js/pages/dashboard-ecommerce.init.js') }}"></script>
+
+<!-- App js -->
+<script src="{{ asset('assetsAdmin/js/app.js') }}"></script>
+</body>
+
+</html>
