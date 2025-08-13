@@ -1,4 +1,7 @@
 <!-- JAVASCRIPT -->
+</div>
+
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 <script src="{{ asset('assetsAdmin/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assetsAdmin/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ asset('assetsAdmin/libs/node-waves/waves.min.js') }}"></script>
@@ -21,6 +24,9 @@
 
 <!-- App js -->
 <script src="{{ asset('assetsAdmin/js/app.js') }}"></script>
+<script>$(document).ready(function () {
+        $('#myTable').DataTable();
+    });</script>
 </body>
 
 </html>

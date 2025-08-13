@@ -3,5 +3,7 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<h1>Admin Dashboard</h1>
+
+@include('admin.components.dashboard.page')
+
 @endsection

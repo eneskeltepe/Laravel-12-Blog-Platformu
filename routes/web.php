@@ -6,6 +6,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BlogController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -16,4 +17,5 @@ Route::get('/business', [BusinessController::class, 'index'])->name('business.in
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/blog-list', [BlogController::class, 'index'])->name('blog.index');
 });

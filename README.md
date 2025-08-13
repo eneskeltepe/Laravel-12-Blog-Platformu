@@ -16,6 +16,13 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Template parçaları: `resources/views/admin/template/{header,topbar,sidebar,footer}.blade.php`
 - Statik dosyalar: `public/assetsAdmin/**` (Blade içinde `asset('assetsAdmin/...')` ile kullanılır)
 
+#### Blog Listesi (eklenen)
+- Controller: `Admin\\BlogController@index`
+- Rota: `/admin/blog-list` (name: `admin.blog.index`)
+- Sayfa: `resources/views/admin/pages/blog-list.blade.php`
+- Bileşenler: `resources/views/admin/components/blogList/{blog-list-header,blog-list-main}.blade.php`
+- Not: Örnek tablo verileri statik olarak eklenmiştir; ileride Post modeli ile dinamikleştirilebilir.
+
 ### Kurulum
 Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP veya benzeri.
 
