@@ -9,6 +9,13 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Görünümler: `resources/views/pages/{home,about,archive,business}.blade.php` ve Admin için `resources/views/admin/{layouts,template,pages}`
 - Rotalar: `/`, `/about`, `/archive`, `/business` ve Admin için `/admin` (name: `admin.dashboard.index`)
 
+### Admin Kimlik Doğrulama (eklenen)
+- Giriş sayfası: `GET /admin/login` → `Admin\LoginController@index` (name: `login`)
+- Giriş işlemi: `POST /admin/login` → `Admin\LoginController@login` (name: `admin.login.post`)
+- Çıkış: `GET /admin/logout` → `Admin\LoginController@logout` (name: `admin.logout`)
+- Admin rota grubu `Route::prefix('admin')->name('admin.')->middleware('auth')` ile korunuyor.
+- Görünüm: `resources/views/admin/pages/login.blade.php` (statik şablon, `public/assetsAdmin/**` kullanır)
+
 ### Admin Modülü (yeni)
 - Rota grubu: `Route::prefix('admin')->name('admin.')->group(...)`
 - Dashboard: `Admin\DashboardController@index` → view: `admin.pages.dashboard`
@@ -22,6 +29,9 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Sayfa: `resources/views/admin/pages/blog-list.blade.php`
 - Bileşenler: `resources/views/admin/components/blogList/{blog-list-header,blog-list-main}.blade.php`
 - Not: Örnek tablo verileri statik olarak eklenmiştir; ileride Post modeli ile dinamikleştirilebilir.
+
+### Uyum ve Varsayılanlar
+- MySQL/MariaDB uyumluluğu için `AppServiceProvider::boot()` içinde `Schema::defaultStringLength(191)` ayarı yapılmıştır.
 
 ### Kurulum
 Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP veya benzeri.
@@ -44,7 +54,7 @@ Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP v
 Admin paneli: `http://localhost:8000/admin` (veya sanal host adresiniz `/admin`).
 
 ### Notlar ve Yol Haritası
-- Pivot tablo migrasyonunda tablo adı `post_create` olarak görünüyor; `post_tag` olacak şekilde düzenlenmesi planlanıyor.
+- Pivot tablo migrasyon adı `post_tag` olarak düzeltilmiştir.
 - Modellerde ilişkiler (belongsTo, hasMany, belongsToMany) henüz tanımlı değil; eklenecek.
 - Admin modülü iskeleti eklendi; yetkilendirme ve içerik CRUD ekranları eklenecek.
 
