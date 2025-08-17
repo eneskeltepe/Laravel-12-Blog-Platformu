@@ -8,7 +8,7 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\LoginController;
-
+use App\Http\Controllers\admin\ProfileController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
@@ -19,6 +19,11 @@ Route::get('/business', [BusinessController::class, 'index'])->name('business.in
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/blog-list', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'profileUpdate'])->name('profile.update');
+
+
+
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 

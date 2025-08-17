@@ -9,29 +9,41 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Görünümler: `resources/views/pages/{home,about,archive,business}.blade.php` ve Admin için `resources/views/admin/{layouts,template,pages}`
 - Rotalar: `/`, `/about`, `/archive`, `/business` ve Admin için `/admin` (name: `admin.dashboard.index`)
 
-### Admin Kimlik Doğrulama (eklenen)
+### Admin Kimlik Doğrulama
 - Giriş sayfası: `GET /admin/login` → `Admin\LoginController@index` (name: `login`)
 - Giriş işlemi: `POST /admin/login` → `Admin\LoginController@login` (name: `admin.login.post`)
 - Çıkış: `GET /admin/logout` → `Admin\LoginController@logout` (name: `admin.logout`)
 - Admin rota grubu `Route::prefix('admin')->name('admin.')->middleware('auth')` ile korunuyor.
 - Görünüm: `resources/views/admin/pages/login.blade.php` (statik şablon, `public/assetsAdmin/**` kullanır)
 
-### Admin Modülü (yeni)
+### Admin Modülü
 - Rota grubu: `Route::prefix('admin')->name('admin.')->group(...)`
 - Dashboard: `Admin\DashboardController@index` → view: `admin.pages.dashboard`
 - Layout: `resources/views/admin/layouts/main.blade.php` (header, topbar, sidebar, footer include edilir)
 - Template parçaları: `resources/views/admin/template/{header,topbar,sidebar,footer}.blade.php`
 - Statik dosyalar: `public/assetsAdmin/**` (Blade içinde `asset('assetsAdmin/...')` ile kullanılır)
 
-#### Blog Listesi (eklenen)
+#### Blog Listesi
 - Controller: `Admin\\BlogController@index`
 - Rota: `/admin/blog-list` (name: `admin.blog.index`)
 - Sayfa: `resources/views/admin/pages/blog-list.blade.php`
 - Bileşenler: `resources/views/admin/components/blogList/{blog-list-header,blog-list-main}.blade.php`
 - Not: Örnek tablo verileri statik olarak eklenmiştir; ileride Post modeli ile dinamikleştirilebilir.
 
+#### Profil Yönetimi
+- Controller: `Admin\\ProfileController` (index, profileUpdate)
+- Rotalar: 
+  - `GET /admin/profile` (name: `admin.profile`)
+  - `POST /admin/profile` (name: `admin.profile.update`)
+- Sayfa: `resources/views/admin/pages/profile.blade.php`
+- Bileşenler: `resources/views/admin/components/profile/{main-header,main-content}.blade.php`
+- Migration: `2025_08_17_074326_add_profile_image_to_users_table.php` (profile_image alanı eklendi)
+- Özellikler: Kullanıcı adı, e-posta, şifre güncelleme; profil resmi yükleme (`public/profile_images/`)
+- Not: Profil güncelleme sonrası otomatik çıkış yapılır ve yeniden giriş gerekir.
+
 ### Uyum ve Varsayılanlar
 - MySQL/MariaDB uyumluluğu için `AppServiceProvider::boot()` içinde `Schema::defaultStringLength(191)` ayarı yapılmıştır.
+- Profil resimleri `public/profile_images/` dizininde saklanır ve web erişimi için bu dizin gereklidir.
 
 ### Kurulum
 Gereksinimler: PHP, Composer, Node.js/NPM, bir veritabanı (MySQL), WAMP/XAMPP veya benzeri.
@@ -57,6 +69,7 @@ Admin paneli: `http://localhost:8000/admin` (veya sanal host adresiniz `/admin`)
 - Pivot tablo migrasyon adı `post_tag` olarak düzeltilmiştir.
 - Modellerde ilişkiler (belongsTo, hasMany, belongsToMany) henüz tanımlı değil; eklenecek.
 - Admin modülü iskeleti eklendi; yetkilendirme ve içerik CRUD ekranları eklenecek.
+- Profil sistemi eklendi; kullanıcı yönetimi ve dosya yükleme işlevselliği aktif.
 
 ### Lisans
 MIT

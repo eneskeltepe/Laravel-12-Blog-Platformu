@@ -473,7 +473,7 @@
                     <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="assetsAdmin/images/users/avatar-1.jpg"
+                            <img class="rounded-circle header-profile-user" src="{{ asset(Auth::user()->profile_image) }}"
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span
@@ -485,7 +485,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="pages-profile.html"><i
+                        <a class="dropdown-item" href="{{ route('admin.profile') }}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profil</span></a>
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i

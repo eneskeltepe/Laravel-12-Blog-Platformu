@@ -24,6 +24,10 @@ pnpm-debug.log*
 /storage/framework/views/
 /bootstrap/cache/*.php
 
+# User uploaded files
+/public/profile_images/*
+!/public/profile_images/.gitkeep
+
 # Mix / Vite / NPM outputs
 public/mix-manifest.json
 public/build/
