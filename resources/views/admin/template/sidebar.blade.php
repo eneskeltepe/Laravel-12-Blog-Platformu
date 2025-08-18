@@ -70,7 +70,7 @@
                                     data-key="t-horizontal">Üyeler</a>
                             </li>
                             <li class="nav-item">
-                                <a href="layouts-detached.html" class="nav-link" target="_blank"
+                                <a href="{{ route('admin.adminList') }}" class="nav-link" target="_blank"
                                     data-key="t-detached">Adminler</a>
                             </li>
                         </ul>

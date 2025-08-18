@@ -3,8 +3,8 @@
 Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, Kategori, Etiket ve Yorum tablolarıyla temel içerik yapısı hazır; Home, About, Archive ve Business sayfaları için controller ve blade şablonları oluşturulmuştur. Proje geliştikçe bu dosya genişletilecektir.
 
 ### Neler var
-- Modeller: Post, Category, Tag, Comment, User
-- Migrasyonlar: posts, categories, tags, post_tag (pivot), comments
+- Modeller: Post, Category, Tag, Comment, User, Role, Permission
+- Migrasyonlar: posts, categories, tags, post_tag (pivot), comments, roles, permissions, users (role_id eklemesi)
 - Controller’lar: HomeController, AboutController, ArchiveController, BusinessController, Admin/DashboardController
 - Görünümler: `resources/views/pages/{home,about,archive,business}.blade.php` ve Admin için `resources/views/admin/{layouts,template,pages}`
 - Rotalar: `/`, `/about`, `/archive`, `/business` ve Admin için `/admin` (name: `admin.dashboard.index`)
@@ -15,6 +15,7 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Çıkış: `GET /admin/logout` → `Admin\LoginController@logout` (name: `admin.logout`)
 - Admin rota grubu `Route::prefix('admin')->name('admin.')->middleware('auth')` ile korunuyor.
 - Görünüm: `resources/views/admin/pages/login.blade.php` (statik şablon, `public/assetsAdmin/**` kullanır)
+- "Beni Hatırla" desteği: login formunda `remember` checkbox; sunucuda `Auth::attempt($credentials, $remember)` kullanılır.
 
 ### Admin Modülü
 - Rota grubu: `Route::prefix('admin')->name('admin.')->group(...)`
@@ -30,6 +31,12 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Bileşenler: `resources/views/admin/components/blogList/{blog-list-header,blog-list-main}.blade.php`
 - Not: Örnek tablo verileri statik olarak eklenmiştir; ileride Post modeli ile dinamikleştirilebilir.
 
+#### Admin Listesi (yeni)
+- Controller: `Admin\\AdminController@index`
+- Rota: `/admin/adminList` (name: `admin.adminList`)
+- Sayfa: `resources/views/admin/pages/admin.blade.php`
+- Bileşenler: `resources/views/admin/components/admin/{admin-header,admin-main}.blade.php`
+
 #### Profil Yönetimi
 - Controller: `Admin\\ProfileController` (index, profileUpdate)
 - Rotalar: 
@@ -40,6 +47,17 @@ Laravel tabanlı, çok basit bir blog platformunun ilk sürüm iskeleti. Post, K
 - Migration: `2025_08_17_074326_add_profile_image_to_users_table.php` (profile_image alanı eklendi)
 - Özellikler: Kullanıcı adı, e-posta, şifre güncelleme; profil resmi yükleme (`public/profile_images/`)
 - Not: Profil güncelleme sonrası otomatik çıkış yapılır ve yeniden giriş gerekir.
+
+#### Rol ve Yetki Sistemi (yeni)
+- Modeller: `App\\Models\\admin\\Role`, `App\\Models\\admin\\Permission`
+- Migrasyonlar:
+  - `create_roles_table`
+  - `create_permissions_table` (permissions.role_id → roles.id, cascade delete)
+  - `add_role_id_to_users_table` (nullable foreign key, on delete set null)
+- İlişkiler:
+  - `Role::permissions()` → `hasMany(Permission::class)`
+  - `Permission::role()` → `belongsTo(Role::class)`
+  - `User::role()` → `belongsTo(Role::class)` ve `users.role_id` alanı eklendi
 
 ### Uyum ve Varsayılanlar
 - MySQL/MariaDB uyumluluğu için `AppServiceProvider::boot()` içinde `Schema::defaultStringLength(191)` ayarı yapılmıştır.
@@ -70,6 +88,7 @@ Admin paneli: `http://localhost:8000/admin` (veya sanal host adresiniz `/admin`)
 - Modellerde ilişkiler (belongsTo, hasMany, belongsToMany) henüz tanımlı değil; eklenecek.
 - Admin modülü iskeleti eklendi; yetkilendirme ve içerik CRUD ekranları eklenecek.
 - Profil sistemi eklendi; kullanıcı yönetimi ve dosya yükleme işlevselliği aktif.
+- RBAC (Role-Based Access Control) için temel Role/Permission yapısı eklendi; yetkilendirme kuralları ileride genişletilecek.
 
 ### Lisans
 MIT

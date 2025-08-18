@@ -87,7 +87,7 @@
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
+                                            <input class="form-check-input" name="remember" type="checkbox" value=""
                                                 id="auth-remember-check" />
                                             <label class="form-check-label" for="auth-remember-check">Beni
                                                 Hatırla</label>
